@@ -1,6 +1,7 @@
 <script setup>
 import BusyTimesPanel from './BusyTimesPanel.vue';
 import { ref, watch, computed } from 'vue';
+import BanquetForm from './BanquetForm.vue';
 
 const booking = ref({
   date: '',
@@ -24,7 +25,9 @@ const availableTimes = [
 ];
 
 const bookings = [
-  { date: '2025-08-01', time: '19:00', tableId: 1 },
+  { date: '2025-08-04', time: '19:00', tableId: 1 },
+  { date: '2025-08-04', time: '18:00', tableId: 1 },
+  { date: '2025-08-05', time: '19:00', tableId: 1 },
   { date: '2025-08-19', time: '18:00', tableId: 5 },
   { date: '2025-08-20', time: '15:00', tableId: 9 }
 ];
@@ -102,6 +105,7 @@ const confirmBooking = () => {
   availability.value = null;
   error.value = '';
 };
+const showBanquetModal = ref(false);
 </script>
 
 <template>
@@ -178,6 +182,22 @@ const confirmBooking = () => {
       </p>
 
       <BusyTimesPanel :times="busyTimes" />
+      
+    <div class="banquet-toggle">
+      <button @click="showBanquetModal = true">Хотите устроить банкет?</button>
+    </div>
+
+    <div v-if="showBanquetModal" class="modal-overlay" @click.self="showBanquetModal = false">
+      <div class="modal-content">
+        <button class="close-button" @click="showBanquetModal = false">×</button>
+        <BanquetForm />
+      </div>
+    </div>
     </form>
   </div>
+    
+
+    
 </template>
+
+
